@@ -1,0 +1,379 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#define PI 3.14159265359
+#define expo 2.71828182846
+
+typedef struct parametros{
+	float a;
+	int b;
+}parametros;
+
+float soma 		 (float, float);
+float subtracao  (float, float);
+float mult		 (float, float);
+float divisao 	 (float, float);
+double ex        (float);
+float  fat       (float);
+float  seno      (parametros);
+float  cosen     (parametros);
+float  tangente  (parametros);
+float  sec		 (parametros);
+float  cossec    (parametros);
+float  cotg		 (parametros);
+float  raiz      (float,float);
+float  pot       (float,float);
+float  log_natural (float);
+float  logaritmo_10 (float);
+
+int menu ();
+
+int rad(){
+    int n;
+    printf ("MODE\n");
+    printf("\n 1.-Radianos\n 2.-Graus\n\n:");
+    scanf("%d",&n);
+	return n;
+}
+
+int main(){
+	FILE *resultados;
+	
+		resultados = fopen ("resultados.txt", "w");
+	
+		if (resultados == NULL) {
+		printf ("**Erro ao abrir o arquivo**\n");
+		system ("pause");
+		return 0;
+		}
+		
+    float x,y;
+    parametros par;
+    int n,z;
+    do{
+    	n=menu();
+        system("cls");
+        switch(n){
+        	case 1: printf("\n***************** SOMA *****************\n");
+                    printf("Digite o primeiro numero\n:");
+                    scanf("%f",&x);
+                    printf("Digite o segundo numero\n:");
+                    scanf("%f",&y);
+                    x=soma(x,y);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "soma = %f\n", x);
+            break;
+            case 2: printf("\n*************** SUBTRACAO ***************\n");
+                    printf("Digite o primeiro numero\n:");
+                    scanf("%f",&x);
+                    printf("Digite o segundo numero\n:");
+                    scanf("%f",&y);
+                    x=subtracao(x,y);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "subtracao = %f\n", x);
+            break;
+            case 3: printf("\n************* MULTIPLICACAO **************\n");
+                    printf("Digite o primeiro numero\n:");
+                    scanf("%f",&x);
+                    printf("Digite o segundo numero\n:");
+                    scanf("%f",&y);
+                    x=mult(x,y);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "multiplicacao = %f\n", x);
+            break;
+            case 4: printf("\n***************** DIVISAO ****************\n");
+                    printf("Digite o primeiro numero\n:");
+                    scanf("%f",&x);
+                    printf("Digite o segundo numero\n:");
+                    scanf("%f",&y);
+                    x=divisao(x,y);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "divisao = %f\n", x);
+            break;
+            case 5: printf("\n***************** SENO *****************\n");
+                    printf("Digite o seu numero\n:");
+                    scanf("%f",&x);
+                    z = rad();
+                    par.a = x;
+                    par.b = z;
+                    x=seno(par);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "seno = %f\n", x);
+            break;
+            case 6: printf("\n**************** COSSENO ****************\n");
+                    printf("Digite o seu numero\n:");
+                    scanf("%f",&x);
+                    z = rad();
+                    par.a = x;
+                    par.b = z;
+                    x=cosen(par);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "cosseno = %f\n", x);
+            break;
+
+            case 7: printf("\n**************** TANGENTE ****************\n");
+                    printf("Digite o seu numero\n:");
+                    scanf("%f",&x);
+                    z = rad();
+                    par.a = x;
+                    par.b = z;
+					x = tangente(par);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "tangente = %f\n", x);
+            break;
+            case 8: printf("\n**************** SECANTE ****************\n");
+                    printf("Digite o seu numero\n:");
+                    scanf("%f",&x);
+                    z = rad();
+                    par.a = x;
+                    par.b = z;
+                    x=sec(par);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "secante = %f\n", x);
+            break;
+            case 9: printf("\n**************** COSSECANTE ****************\n");
+                    printf("Digite o seu numero\n:");
+                    scanf("%f",&x);
+                    z=rad();
+                    par.a = x;
+                    par.b = z;
+                    x=cossec(par);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "cossecante = %f\n", x);
+            break;
+            case 10: printf("\n**************** COTANGENTE ****************\n");
+                    printf("Digite o seu numero\n:");
+                    scanf("%f",&x);
+                    z=rad();
+                    par.a = x;
+                    par.b = z;
+                    x=cotg(par);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "cotangente = %f\n", x);
+            break;
+            case 11: printf("\n************** FATORIAL **************\n");
+                    printf("Digite o seu numero\n:");
+                    scanf("%f",&x);
+                    x=fat(x);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "fatorial = %f\n", x);
+            break;
+            case 12: printf("\n************** POTENCIA **************\n");
+                    printf("Digite o valor da base\n");
+                    scanf("%f",&x);
+                    printf("Digite o valor do expoente\n:");
+                    scanf("%f",&y);
+                    x=pot(x,y);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "potencia = %f\n", x);
+            break;
+
+            case 13: printf("\n************** LOGARITMO BASE 10 **************\n");
+                    printf("Digite o valor do numero a se obter o log\n");
+                    scanf("%f",&x);
+                    x=logaritmo_10(x);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "logaritmo = %f\n", x);
+            break;
+            case 14: printf("\n********** LOGARITMO NATURAL **********\n");
+                    printf("Digite o valor do numero a se obter o seu ln\n:");
+                    scanf("%f",&y);
+                    x=log_natural(y);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "logaritmo natural = %f\n", x);
+            break;
+            case 15: printf("\n************** EXPONENCIAL NATURAL **************\n");
+                    printf("Digite o valor do expoente\n:");
+                    scanf("%f",&x);
+                    x=ex(x);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "exponencial = %f\n", x);
+            break;
+            case 16: printf("\n************** RAIZ QUADRADA **************\n");
+            		printf ("Digite o valor para calcular sua raiz quadrada\n");
+                    scanf("%f",&x);
+                    x=raiz(x,2);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "raiz quadrada = %f\n", x);
+
+            break;
+            case 17: printf("\n************** RAIZ ENESIMA **************\n");
+                    printf("Digite o valor do indice\n:");
+                    scanf("%f",&y);
+                    printf("Digite o valor do radicando\n:");
+                    scanf("%f",&x);
+                    x=raiz(x,y);
+                    printf("\n-> %g\n\n",x);
+                    fprintf (resultados, "raiz %f = %f\n", y, x);
+            break;
+            case 18: 
+					fclose (resultados);
+				    system("pause");
+            		exit(0);
+            break;
+            default:;
+        }
+    fflush(stdin);
+	system("pause");
+	getchar();
+	system("cls");
+	
+    }while(n<19 && n>0);
+    fclose(resultados);
+return 0;
+}
+
+int menu(){
+    int n;
+    printf("********** Calculadora Cientifica **********");
+    printf("\n 1 .-Soma                                |");
+    printf("\n 2 .-Subtracao                           |");
+    printf("\n 3 .-Multiplicacao                       |");
+    printf("\n 4 .-Divisao                             |");
+    printf("\n 5 .-Seno                                |");
+    printf("\n 6 .-Cosseno                             |");
+    printf("\n 7 .-Tangente                            |");
+    printf("\n 8 .-Secante                             |");
+    printf("\n 9 .-Cossecante                          |");
+    printf("\n 10.-Cotangente                          |");
+	printf("\n 11.-Fatorial                            |");
+	printf("\n 12.-Potencia                            |");
+	printf("\n 13.-Logaritmo Base 10                   |");
+	printf("\n 14.-Logaritmo Natural                   |");
+    printf("\n 15.-Exponencial Natural                 |");
+	printf("\n 16.-Raiz Quadrada                       |");
+    printf("\n 17.-Raiz Enesima                        |");
+    printf("\n 18.-Salvar resultados e Sair            |");
+    printf("\n_________________________________________\n\n:  ");
+    scanf("%d",&n);
+    return n;
+}
+
+float soma (float a, float b) {
+	float r;
+	
+	r = a+b;
+	
+	return r;
+}
+
+float subtracao (float a, float b) {
+	float sub;
+	
+	sub = a - b;
+	
+	return sub;
+}
+
+float mult (float a, float b) {
+	float multiplicacao;
+	
+	multiplicacao = a*b;
+	
+	return multiplicacao;
+}
+
+float divisao (float a, float b) {
+	float d;
+	
+	d = a/b;
+	
+	return d;
+}
+
+float pot(float x,float n){
+    float potencia;
+    
+    potencia = pow(x,n);
+    
+    return potencia;
+}
+float fat(float x){
+    int i;
+    float fatorial=1;
+    for(i=1; i<=x; i++) {
+    	fatorial = fatorial*i;
+	}
+	return fatorial;
+}
+
+float seno(parametros par){
+	float sen;
+    if (par.b==1){
+		sen = sin(par.a);
+	} else {
+		sen = sin(par.a*PI/180);
+	}
+    return sen;
+}
+
+float cosen(parametros par){
+	float c;
+	if (par.b==1){
+		c = cos(par.a);
+	} else {
+		c = cos(par.a*PI/180);
+	}
+	return c;
+}
+
+float tangente(parametros par){	
+	float tg;
+	if (par.b==1){
+		tg = tan(par.a);
+	} else {
+		tg = tan(par.a*PI/180);
+	}
+	return tg;
+}
+
+float sec(parametros par){
+	float c;
+	c = cosen(par);
+	return 1/c;
+}
+
+float cossec(parametros par){
+	float s;
+	s = seno(par);
+	return 1/s;
+}
+
+float cotg(parametros par){
+	float tg;
+	tg = tangente(par);
+	return 1/tg;
+}
+
+double ex(float x){
+    double exponencial;
+    
+    exponencial = pow(expo,x);
+    
+    return exponencial;
+}
+
+float logaritmo_10(float x) {
+	float l;
+	
+	l = log10(x);
+	
+	return l;
+}
+
+float log_natural(float x){
+	float logaritmo;
+	
+	logaritmo = log(x);
+	
+	return logaritmo;
+}
+
+float raiz(float x,float y){
+	float r;
+	
+	r = pow(x,1/y);
+	
+	return r;
+}
+
